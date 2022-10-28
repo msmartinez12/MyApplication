@@ -14,6 +14,7 @@ class MainActivity : AppCompatActivity() {
         val carro = Carro()
         carro.imprimir()
         calcularIVA(50)
+        validarCedula("1102775283")
     }
 
     fun validarMayorEdad(edad: Int){
@@ -85,6 +86,33 @@ class MainActivity : AppCompatActivity() {
 
     fun validarCedula(cedula: Int){
         var valores = listOf<Int>(2,1,2,1,2,1,2,1,2)
+    }
+
+
+    fun validarCedula(cedula: String){
+        var valores = listOf<Int>(2,1,2,1,2,1,2,1,2)
+        val listaValores = cedula.toList()
+        var total = 0
+        for(i in 0..(listaValores.size - 2)){
+            var totalNum = valores[i] * listaValores.get(i).digitToInt()
+            var sum = 0
+            if(totalNum>=10){
+                while (totalNum > 0) {
+                    var aux = totalNum % 10
+                    sum += aux
+                    totalNum /= 10
+                }
+                totalNum = sum
+            }
+            total += totalNum
+        }
+
+        if(10-(total % 10) == listaValores.last().digitToInt()){
+            println("Cedula correcta")
+        }else{
+            println("Cedula incorrecta")
+
+        }
     }
 }
 
